@@ -139,8 +139,10 @@ Consume mucha CPU ya que la implementación no es eficaz.
 
 6. Adjunte la imagen del resumen de la ejecución de Postman. Interprete:
     
+* B1ls
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/pman1.png)
 
+* B2ms
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/pman11.png)
 
 Los tiempos son altos y hay fallos de desconexión.
@@ -252,13 +254,16 @@ newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALAN
 newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10 &
 newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10
 ```
-
+* VM1
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1_4.png)
 
+* VM2
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/2_4.png)
 
+* VM3
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/3_4.png)
 
+* VM4
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/4_4.png)
 
 **Preguntas**
@@ -313,10 +318,13 @@ Le permiten configurar la seguridad de la red como una extensión natural de la 
 
 Se puede ver que los tiempos disminuyeron y a su vez los fallos, esto se da por que al tener el balanceador de carga los números de peticiones se equilibran en el servidor.
 
+* VM1
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/vm1lb.png)
 
+* VM2
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/vm2lb.png)
 
+* VM3
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/vm3lb.png)
 
 
