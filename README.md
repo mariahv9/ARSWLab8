@@ -51,24 +51,43 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
 
 7. La función que calcula en enésimo número de la secuencia de Fibonacci está muy mal construido y consume bastante CPU para obtener la respuesta. Usando la consola del Browser documente los tiempos de respuesta para dicho endpoint usando los siguintes valores:
     * 1000000
+    
     ![100000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1000000.png)
+    
     * 1010000
+    
     ![1010000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1010000.png)
+    
     * 1020000
+    
     ![1020000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1020000.png)
+    
     * 1030000
+    
     ![1030000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1030000.png)
+    
     * 1040000
+    
     ![1040000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1040000.png)
+    
     * 1050000
+    
     ![1050000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1050000.png)
+    
     * 1060000
+    
     ![1060000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1060000.png)
+    
     * 1070000
+    
     ![1070000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1070000.png)
+    
     * 1080000
+    
     ![1080000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1080000.png)
+    
     * 1090000    
+    
     ![1090000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1090000.png)
 
 8. Dírijase ahora a Azure y verifique el consumo de CPU para la VM. (Los resultados pueden tardar 5 minutos en aparecer).
@@ -140,9 +159,11 @@ Consume mucha CPU ya que la implementación no es eficaz.
 6. Adjunte la imagen del resumen de la ejecución de Postman. Interprete:
     
 * B1ls
+
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/pman1.png)
 
 * B2ms
+
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/pman11.png)
 
 Los tiempos son altos y hay fallos de desconexión.
@@ -255,15 +276,19 @@ newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALAN
 newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10
 ```
 * VM1
+
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1_4.png)
 
 * VM2
+
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/2_4.png)
 
 * VM3
+
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/3_4.png)
 
 * VM4
+
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/4_4.png)
 
 **Preguntas**
@@ -319,12 +344,15 @@ Le permiten configurar la seguridad de la red como una extensión natural de la 
 Se puede ver que los tiempos disminuyeron y a su vez los fallos, esto se da por que al tener el balanceador de carga los números de peticiones se equilibran en el servidor.
 
 * VM1
+
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/vm1lb.png)
 
 * VM2
+
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/vm2lb.png)
 
 * VM3
+
 ![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/vm3lb.png)
 
 
