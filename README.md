@@ -227,15 +227,82 @@ newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALAN
 **Preguntas**
 
 * ¿Cuáles son los tipos de balanceadores de carga en Azure y en qué se diferencian?, ¿Qué es SKU, qué tipos hay y en qué se diferencian?, ¿Por qué el balanceador de carga necesita una IP pública?
+
+Un **equilibrador de carga público** puede proporcionar conexiones de salida para máquinas virtuales dentro de la red virtual. Estas conexiones se realizan mediante la traducción de sus direcciones IP privadas a direcciones IP públicas. Las instancias públicas de Load Balancer se usan para equilibrar la carga del tráfico de Internet en las máquinas virtuales.
+
+Un **equilibrador de carga interno (o privado)** se usa cuando se necesitan direcciones IP privadas solo en el front-end. Los equilibradores de carga internos se usan para equilibrar la carga del tráfico dentro de una red virtual. También se puede acceder a un servidor front-end del equilibrador de carga desde una red local en un escenario híbrido.
+
+
+*Ilustración: Equilibrar las aplicaciones de niveles múltiples mediante Load Balancer público e interno*
+
+* **Sku** Representa una unidad de mantenimiento de existencias (SKU) que se puede comprar debajo de un producto. Estos representan las diferentes formas del producto.
+
 * ¿Cuál es el propósito del *Backend Pool*?
+
+Define el grupo de recursos que brindarán tráfico para una regla de equilibrio de carga determinada.
+
 * ¿Cuál es el propósito del *Health Probe*?
+
+Configura una sonda de estado que su balanceador de carga puede usar para determinar si su instancia está en buen estado. Si su instancia falla su prueba de estado suficientes veces, dejará de recibir tráfico hasta que comience a pasar las pruebas de estado nuevamente.
+
 * ¿Cuál es el propósito de la *Load Balancing Rule*? ¿Qué tipos de sesión persistente existen, por qué esto es importante y cómo puede afectar la escalabilidad del sistema?.
+
+Abre un puerto orientado a Internet y reenvía el tráfico al puerto del nodo interno que usa su aplicación. Si no tiene un equilibrador de carga, consulte Configurar un equilibrador de carga orientado a Internet.
+
 * ¿Qué es una *Virtual Network*? ¿Qué es una *Subnet*? ¿Para qué sirven los *address space* y *address range*?
+
+- Azure Virtual Network (VNet) es el bloque de construcción fundamental para su red privada en Azure. VNet permite que muchos tipos de recursos de Azure, como Azure Virtual Machines (VM), se comuniquen de forma segura entre sí, con Internet y con las redes locales. VNet es similar a una red tradicional que operaría en su propio centro de datos, pero trae consigo beneficios adicionales de la infraestructura de Azure, como escala, disponibilidad y aislamiento.
+- Subnet: La migración de cargas de trabajo a la nube pública requiere una planificación y coordinación cuidadosas. Una de las consideraciones clave puede ser la capacidad de conservar sus direcciones IP. Lo cual puede ser importante, especialmente si sus aplicaciones dependen de la dirección IP o si tiene requisitos de cumplimiento para usar direcciones IP específicas. Azure Virtual Network resuelve este problema al permitirle crear redes virtuales y subredes utilizando un rango de direcciones IP de su elección.
+- Address space: El espacio de direcciones puede referirse a un rango de direcciones físicas o virtuales accesibles a un procesador o reservadas para un proceso .
+- Address range: Las direcciones IP se pueden clasificar en cinco clases A, B, C, D y E. Cada clase consta de un subconjunto contiguo del rango general de direcciones IPv4.
+ 
 * ¿Qué son las *Availability Zone* y por qué seleccionamos 3 diferentes zonas?. ¿Qué significa que una IP sea *zone-redundant*?
+
+- Availability Zone: Las zonas de disponibilidad son ubicaciones físicas únicas con alimentación, red y refrigeración independientes. Cada zona de disponibilidad se compone de uno o más centros de datos y alberga infraestructura para admitir aplicaciones de misión crítica de alta disponibilidad. Las zonas de disponibilidad son tolerantes a las fallas del centro de datos mediante la redundancia y el aislamiento lógico de los servicios.
+
+Se eligieron 3 zonas distintas para tener mejor disponibilidad y mayor tolerancia a fallos, en caso de que falle alguna zona otra zona se hará cargo del servicio.
+
+- Las zonas de disponibilidad proporcionan aislamiento de fallas mediante la separación física. Cada zona consta de uno o más centros de datos con alimentación, red y refrigeración independientes. Considere el almacenamiento con redundancia de zona para aplicaciones donde se requiere acceso de lectura y escritura de alta disponibilidad en una región de Azure.
+
 * ¿Cuál es el propósito del *Network Security Group*?
+
+Le permiten configurar la seguridad de la red como una extensión natural de la estructura de una aplicación, lo que le permite agrupar máquinas virtuales y definir políticas de seguridad de red basadas en esos grupos. 
+
 * Informe de newman 1 (Punto 2)
+
+
 * Presente el Diagrama de Despliegue de la solución.
 
 
+## Referencias
+
+* [Balanceador de Carga](https://docs.microsoft.com/es-es/azure/load-balancer/load-balancer-overview)
+* [Sku](https://docs.microsoft.com/en-us/partner-center/develop/product-resources#sku)
+* [Backend pool](https://docs.microsoft.com/en-us/azure/load-balancer/backend-pool-management)
+* [Health probe](https://www.bluematador.com/docs/troubleshooting/azure-load-balancer-health-probe)
+* [Rule LB](https://docs.microsoft.com/en-us/azure/service-fabric/create-load-balancer-rule)
+* [Virtual network](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)
+* [Subnet](https://docs.microsoft.com/en-us/azure/virtual-network/subnet-extension)
+* [Address space](https://searchstorage.techtarget.com/definition/address-space)
+* [Address range](http://techiebird.com/networkclass.html)
+* [Availibility zone](https://azure.microsoft.com/en-us/global-infrastructure/availability-zones/)
+* [Zone redundant](https://azure.microsoft.com/en-gb/updates/azure-zrs/)
+* [Zone redundant]()
+
+## Construido con 
+
+* [Javascript](https://www.javascript.com/)
+* [Postman](https://www.postman.com/) 
+* [Azure Microsoft](https://azure.microsoft.com/) 
+
+## Reviewed
+
+Diego Alfonso Prieto Torres
+
+## Authors
+
+* **Alan Yesid Marin Mendez** - [PurpleBooth](https://github.com/Elan-MarMEn)
+* **Maria Fernanda Hernandez Vargas** - [PurpleBooth](https://github.com/mariahv9)
 
 
+Students of Systems Engineering of Escuela Colombiana de Ingenieria Julio Garavito 
