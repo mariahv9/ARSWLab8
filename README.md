@@ -51,19 +51,31 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
 
 7. La función que calcula en enésimo número de la secuencia de Fibonacci está muy mal construido y consume bastante CPU para obtener la respuesta. Usando la consola del Browser documente los tiempos de respuesta para dicho endpoint usando los siguintes valores:
     * 1000000
+    ![100000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1000000.png)
     * 1010000
+    ![1010000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1010000.png)
     * 1020000
+    ![1020000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1020000.png)
     * 1030000
+    ![1030000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1030000.png)
     * 1040000
+    ![1040000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1040000.png)
     * 1050000
+    ![1050000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1050000.png)
     * 1060000
+    ![1060000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1060000.png)
     * 1070000
+    ![1070000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1070000.png)
     * 1080000
+    ![1080000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1080000.png)
     * 1090000    
+    ![1090000](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1090000.png)
 
 8. Dírijase ahora a Azure y verifique el consumo de CPU para la VM. (Los resultados pueden tardar 5 minutos en aparecer).
 
 ![Imágen 2](images/part1/part1-vm-cpu.png)
+
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/pruebauso1.png)
 
 9. Ahora usaremos Postman para simular una carga concurrente a nuestro sistema. Siga estos pasos.
     * Instale newman con el comando `npm install newman -g`. Para conocer más de Newman consulte el siguiente [enlace](https://learning.getpostman.com/docs/postman/collection-runs/command-line-integration-with-newman/).
@@ -75,13 +87,19 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
     newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10 &
     newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10
     ```
-
+    
 10. La cantidad de CPU consumida es bastante grande y un conjunto considerable de peticiones concurrentes pueden hacer fallar nuestro servicio. Para solucionarlo usaremos una estrategia de Escalamiento Vertical. En Azure diríjase a la sección *size* y a continuación seleccione el tamaño `B2ms`.
 
 ![Imágen 3](images/part1/part1-vm-resize.png)
 
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/resize.png)
+
 11. Una vez el cambio se vea reflejado, repita el paso 7, 8 y 9.
+
 12. Evalue el escenario de calidad asociado al requerimiento no funcional de escalabilidad y concluya si usando este modelo de escalabilidad logramos cumplirlo.
+
+El consumo de la CPU se redujo pero los tiempos de espera no cambiaron.
+
 13. Vuelva a dejar la VM en el tamaño inicial para evitar cobros adicionales.
 
 **Preguntas**
@@ -94,8 +112,11 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
 
 2. ¿Brevemente describa para qué sirve cada recurso?
 - Virtual Network (VNet): Es una división lógica de redes dentro de nuestra suscripción a Azure. Por defecto, máquinas virtuales que estén en diferentes VNets no podrán conectarse entre sí. Podemos tener más de una VNet con el mismo rango de IPs, aunque no es una buena idea si después queremos conectarlas. Vemos que podemos crear otra VNet con el mismo rango de IPs y solo nos muestra un aviso.
+
 - Direcciones IP Privadas: Se usan internamente en la VNet para comunicar entre sí máquinas virtuales que pertenecen a la misma subnet, máquinas que están en VNets diferentes mediante VNet peering, para conectar máquinas en Azure con máquinas on-premises mediante una VPN, para conectar máquinas virtuales en dos regiones diferentes de Azure mediante una VPN y también para conectar máquinas virtuales con su balanceador de carga o su gateway. Estas direcciones IP privadas NO se deben cambiar desde el sistema operativo de la máquina virtual.
+
 - Direcciones IP Públicas: Se utilizan para la conexión desde Internet a la máquina virtual. La primera NIC que creamos en una VM se denomina Primary y tiene asignada la IP pública, el resto de NICs son secundarias y no tienen IP Pública.
+
 - Grupos de seguridad de Red (NSG): Conjuntos de reglas que permiten controlar los paquetes entrantes y salientes a las máquinas virtuales. Se pueden asignar tanto a nivel de VNets y subnets como a nivel de NICs. Entraremos en detalle en otro post.
 
 3. ¿Al cerrar la conexión ssh con la VM, por qué se cae la aplicación que ejecutamos con el comando `npm FibonacciApp.js`? ¿Por qué debemos crear un *Inbound port rule* antes de acceder al servicio?
@@ -106,20 +127,24 @@ La regla de puerto de entrada se configura para poder hacer conexion tipo UDP a 
 
 4. Adjunte tabla de tiempos e interprete por qué la función tarda tando tiempo.
 
-Tabla B1ls
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/t1.png)
 
-Tabla B2ms
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/t2.png)
 
 5. Adjunte imágen del consumo de CPU de la VM e interprete por qué la función consume esa cantidad de CPU.
 
-B1ls
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/pruebasuso2.png)
 
-B2ms
-
+Consume mucha CPU ya que la implementación no es eficaz.
 
 6. Adjunte la imagen del resumen de la ejecución de Postman. Interprete:
-    * Tiempos de ejecución de cada petición.
-    * Si hubo fallos documentelos y explique.
+    
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/pman1.png)
+
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/pman11.png)
+
+Los tiempos son altos y hay fallos de desconexión.
+
 7. ¿Cuál es la diferencia entre los tamaños `B2ms` y `B1ls` (no solo busque especificaciones de infraestructura)?
 
 El disco B1ls tiene de memoria 0.5 GiB y la B2ms tiene 8 GiB, esto permite que el almacenamiento interno sea mayor, el rendimiento de la CPU del disco B2ms es el doble al del disco B1ls. Las mejoras del disco B2ms son mayores y eso se ve reflejado en el consumo de créditos consumidos en comparación a la B1ls.
@@ -213,6 +238,10 @@ http://52.155.223.248/
 http://52.155.223.248/fibonacci/1
 ```
 
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/hello.png)
+
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/pr1.png)
+
 2. Realice las pruebas de carga con `newman` que se realizaron en la parte 1 y haga un informe comparativo donde contraste: tiempos de respuesta, cantidad de peticiones respondidas con éxito, costos de las 2 infraestrucruras, es decir, la que desarrollamos con balanceo de carga horizontal y la que se hizo con una maquina virtual escalada.
 
 3. Agregue una 4 maquina virtual y realice las pruebas de newman, pero esta vez no lance 2 peticiones en paralelo, sino que incrementelo a 4. Haga un informe donde presente el comportamiento de la CPU de las 4 VM y explique porque la tasa de éxito de las peticiones aumento con este estilo de escalabilidad.
@@ -224,6 +253,14 @@ newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALAN
 newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10
 ```
 
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/1_4.png)
+
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/2_4.png)
+
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/3_4.png)
+
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/4_4.png)
+
 **Preguntas**
 
 * ¿Cuáles son los tipos de balanceadores de carga en Azure y en qué se diferencian?, ¿Qué es SKU, qué tipos hay y en qué se diferencian?, ¿Por qué el balanceador de carga necesita una IP pública?
@@ -232,6 +269,7 @@ Un **equilibrador de carga público** puede proporcionar conexiones de salida pa
 
 Un **equilibrador de carga interno (o privado)** se usa cuando se necesitan direcciones IP privadas solo en el front-end. Los equilibradores de carga internos se usan para equilibrar la carga del tráfico dentro de una red virtual. También se puede acceder a un servidor front-end del equilibrador de carga desde una red local en un escenario híbrido.
 
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/lbpregunta.png)
 
 *Ilustración: Equilibrar las aplicaciones de niveles múltiples mediante Load Balancer público e interno*
 
@@ -252,8 +290,11 @@ Abre un puerto orientado a Internet y reenvía el tráfico al puerto del nodo in
 * ¿Qué es una *Virtual Network*? ¿Qué es una *Subnet*? ¿Para qué sirven los *address space* y *address range*?
 
 - Azure Virtual Network (VNet) es el bloque de construcción fundamental para su red privada en Azure. VNet permite que muchos tipos de recursos de Azure, como Azure Virtual Machines (VM), se comuniquen de forma segura entre sí, con Internet y con las redes locales. VNet es similar a una red tradicional que operaría en su propio centro de datos, pero trae consigo beneficios adicionales de la infraestructura de Azure, como escala, disponibilidad y aislamiento.
+
 - Subnet: La migración de cargas de trabajo a la nube pública requiere una planificación y coordinación cuidadosas. Una de las consideraciones clave puede ser la capacidad de conservar sus direcciones IP. Lo cual puede ser importante, especialmente si sus aplicaciones dependen de la dirección IP o si tiene requisitos de cumplimiento para usar direcciones IP específicas. Azure Virtual Network resuelve este problema al permitirle crear redes virtuales y subredes utilizando un rango de direcciones IP de su elección.
+
 - Address space: El espacio de direcciones puede referirse a un rango de direcciones físicas o virtuales accesibles a un procesador o reservadas para un proceso .
+
 - Address range: Las direcciones IP se pueden clasificar en cinco clases A, B, C, D y E. Cada clase consta de un subconjunto contiguo del rango general de direcciones IPv4.
  
 * ¿Qué son las *Availability Zone* y por qué seleccionamos 3 diferentes zonas?. ¿Qué significa que una IP sea *zone-redundant*?
@@ -270,8 +311,18 @@ Le permiten configurar la seguridad de la red como una extensión natural de la 
 
 * Informe de newman 1 (Punto 2)
 
+Se puede ver que los tiempos disminuyeron y a su vez los fallos, esto se da por que al tener el balanceador de carga los números de peticiones se equilibran en el servidor.
+
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/vm1lb.png)
+
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/vm2lb.png)
+
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/vm3lb.png)
+
 
 * Presente el Diagrama de Despliegue de la solución.
+
+![](https://github.com/mariahv9/ARSWLab8/blob/main/resources/diagrama.png)
 
 
 ## Referencias
